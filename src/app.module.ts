@@ -5,7 +5,10 @@ import { AppController } from './app.controller';
 import { DATABASE_MODELS } from './database/models';
 import { SeedService } from './database/seed.service';
 import { AuthModule } from './modules/auth/auth.module';
+import { CreditsModule } from './modules/credits/credits.module';
 import { EventsModule } from './modules/events/events.module';
+import { ScannerModule } from './modules/scanner/scanner.module';
+import { TicketsModule } from './modules/tickets/tickets.module';
 
 @Module({
   imports: [
@@ -35,6 +38,9 @@ import { EventsModule } from './modules/events/events.module';
     SequelizeModule.forFeature(DATABASE_MODELS),
     AuthModule,
     EventsModule,
+    TicketsModule,
+    ScannerModule,
+    CreditsModule,
   ],
   controllers: [AppController],
   providers: [SeedService],

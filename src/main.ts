@@ -41,11 +41,11 @@ async function bootstrap() {
   const cookieName =
     configService.get<string>('COOKIE_NAME') || 'sonateca_access_token';
 
-  // Configuración de Swagger (OpenAPI) con soporte de Cookies httpOnly
+  // Configuración de Swagger (OpenAPI)
   const swaggerConfig = new DocumentBuilder()
     .setTitle('SONATECA ACCESS — API REST')
     .setDescription(
-      'Documentación interactiva de endpoints para el ecosistema SONATECA ACCESS. La sesión se maneja automáticamente por Cookies httpOnly al ejecutar POST /api/v1/auth/login.',
+      'Documentación interactiva de endpoints para el ecosistema SONATECA ACCESS. Incluye Auth por Cookies, Gestión de Eventos, Invitaciones QR y Control de Acceso en Puerta (Scanner).',
     )
     .setVersion('1.0.0')
     .addCookieAuth(cookieName, {
@@ -60,9 +60,19 @@ async function bootstrap() {
         type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
-        description: 'Respaldo opcional vía header Authorization Bearer',
+        description: 'Token de acceso del Productor / SuperAdmin',
       },
       'access-token',
+    )
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description:
+          'Token devuelto por /api/v1/scanner/auth al ingresar el PIN de 6 dígitos',
+      },
+      'scanner-token',
     )
     .build();
 
